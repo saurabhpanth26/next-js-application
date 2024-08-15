@@ -1,0 +1,22 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Resources:
+  AmplifyApp:
+    Type: "AWS::Amplify::App"
+    Properties: 
+      Name: "MyNextJsApp"
+      Repository: "https://github.com/username/my-nextjs-app"
+      OauthToken: "{{resolve:ssm:/github/token}}"
+      BuildSpec: "amplify.yml"  # References the external build spec file
+
+  AmplifyBranch:
+    Type: "AWS::Amplify::Branch"
+    Properties: 
+      AppId: !Ref AmplifyApp
+      BranchName: "main"
+      EnableAutoBuild: true
+      Stage: "PRODUCTION"
+
+Outputs:
+  AmplifyAppURL:
+    Description: "URL of the deployed Next.js application"
+    Value: !Sub "https://${AmplifyBranch.BranchName}.${AmplifyApp.DefaultDomain}"
