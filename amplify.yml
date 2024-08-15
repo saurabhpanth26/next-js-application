@@ -3,7 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
-        - npm ci
+        - npm install  # or keep `npm ci` after generating `package-lock.json`
     build:
       commands:
         - npm run build
@@ -13,4 +13,5 @@ frontend:
       - '**/*'
   cache:
     paths:
-      - node_modules/**/*
+      - node_modules/**/* 
+      - .next/**/*  # Optional: Cache build directory if needed
