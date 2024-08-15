@@ -1,17 +1,21 @@
 version: 1
-frontend:
-  phases:
-    preBuild:
-      commands:
-        - npm install  # or keep `npm ci` after generating `package-lock.json`
-    build:
-      commands:
-        - npm run build
-  artifacts:
-    baseDirectory: .next
-    files:
-      - '**/*'
-  cache:
-    paths:
-      - node_modules/**/* 
-      - .next/**/*  # Optional: Cache build directory if needed
+applications:
+  - appRoot: /
+    frontend:
+      phases:
+        preBuild:
+          commands:
+            - npm install
+        build:
+          commands:
+            - npm run build
+        postBuild:
+          commands:
+            - npm run export
+    artifacts:
+      baseDirectory: out
+      files:
+        - '**/*'
+    cache:
+      paths:
+        - node_modules/**/*
