@@ -11,10 +11,10 @@ applications:
         postBuild:
           commands:
             - npm run export
-    artifacts:
-      baseDirectory: out
-      files:
-        - '**/*'
-    cache:
-      paths:
-        - node_modules/**/*
+      artifacts:
+        baseDirectory: out
+        files:
+          - '**/*'
+      cache:
+        paths:
+          - node_modules/**/*
